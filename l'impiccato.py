@@ -3,7 +3,6 @@ from time import sleep
 
 err = 0
 l_count = 0
-n = 0
 
 matrix_s_m = [
     ['_', '_', '_', '_', '_', '_', '_', '_', '_', ' ', ' ', ' ', ' ', ' '],
@@ -64,6 +63,7 @@ for le in word:
 print(f'{l_count} lettere.\n')
 
 while True:
+    n = -1
     print(screen_guess)
     if err >= 1:
         matrix_s_m[1][8] = '|'
@@ -91,16 +91,28 @@ while True:
         matrix_s_m[5][10] = '\ '
     if err >= 12:
         matrix_s_m[6][8] = '\ '
-    if err >= 8:
+    if err >= 13:
         matrix_s_m[7][9] = '\ '
     for row in matrix_s_m:
         print(' '.join(row))
-    guess = input('Inserisci una lettera o la parola: ')
-    if guess == word:
-        print('you win!')
+    if err >= 13:
+        print('you loose!')
         break
-    # else:
-    #     for let in guess:
+    else:
+        err_check = True
+        guess = input('Inserisci una lettera o la parola: ').lower().strip()
+        if guess == word:
+            print('\nyou win!\n')
+            break
+        else:
+            for let in word:
+                n += 1
+                if guess == let:
+                    screen_guess[n] = guess
+                    err_check = False
+            if err_check:
+                err += 1
+
 
 
 
